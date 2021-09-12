@@ -5,8 +5,7 @@ export const UserCard = (props) => {
   const { user } = props;
   return (
     <Card>
-        <UserIconWithName image={user.image}  name={user.name}/>
-
+      <UserIconWithName image={user.image} name={user.name} />
       <SDl>
         <dt>メール</dt>
         <dd>{user.email}</dd>
