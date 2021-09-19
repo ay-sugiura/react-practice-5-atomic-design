@@ -4,6 +4,8 @@ import { HeaderOnly } from "./components/templates/HeaderOnly";
 import { Link, BrowserRouter, Route } from "react-router-dom";
 import { Router } from "./router/Router";
 import styled from "styled-components";
+import { UserProvider } from "./providers/UseProvider";
+import { RecoilRoot } from "recoil";
 
 const users = [...Array(10).keys()].map((value) => {
   return {
@@ -20,13 +22,13 @@ const users = [...Array(10).keys()].map((value) => {
 });
 
 function App() {
-
-  return <Router />
-
+  return (
+    <RecoilRoot>
+      <UserProvider>
+        <Router />
+      </UserProvider>
+    </RecoilRoot>
+  );
 }
 
 export default App;
-
-const SContainer = styled.div`
-
-`;

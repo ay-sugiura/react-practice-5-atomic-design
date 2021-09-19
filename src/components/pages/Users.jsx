@@ -1,6 +1,12 @@
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
+import { UserContext } from "../../providers/UseProvider";
+import { SecondaryButton } from "../atoms/button/SecondaryButton";
 import { SearchInput } from "../molecules/SearchInput";
 import { UserCard } from "../organism/user/UserCard";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { userState } from "../../store/userState";
 
 const users = [...Array(10).keys()].map((value) => {
   return {
@@ -17,10 +23,21 @@ const users = [...Array(10).keys()].map((value) => {
 });
 
 export const Users = () => {
+ // const { userInfo, setUserInfo } = useContext(UserContext);
+const [userInfo, setUserInfo] = useRecoilState(userState);
+
+  const onClickSwitch = () => {
+    userInfo
+      ? setUserInfo({ isAdmin: !userInfo.isAdmin })
+      : setUserInfo({ isAdmin: false });
+  };
   return (
     <SContainer>
       <h2>ユーザ一覧</h2>
       <SearchInput />
+      <br />
+      <SecondaryButton onClick={onClickSwitch}>切り替え</SecondaryButton>
+
       <SUserArea>
         {users.map((user) => (
           <UserCard user={user} key={user.id} />
